@@ -80,6 +80,6 @@ public interface BaseService<T, ID> {
      */
     PageVo<T> setPageVo(List<T> list);
 
-    public BaseMapper<T, ID> getBaseMapper();
+    BaseMapper<T, ID> getBaseMapper();
 
 }

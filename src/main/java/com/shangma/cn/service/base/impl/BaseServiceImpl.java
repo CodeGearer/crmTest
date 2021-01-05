@@ -17,9 +17,9 @@ public class BaseServiceImpl<T, ID> implements BaseService<T, ID> {
     @Autowired
     private BaseMapper<T, ID> baseMapper;
 
-    public BaseMapper<T, ID> getBaseMapper() {
-        return baseMapper;
-    }
+//    public BaseMapper<T, ID> getBaseMapper() {
+//        return baseMapper;
+//    }
 
     @Override
     public PageVo<T> findPage() {
@@ -82,5 +82,10 @@ public class BaseServiceImpl<T, ID> implements BaseService<T, ID> {
         pageVo.setList(list);
         pageVo.setTotal(total);
         return pageVo;
+    }
+
+    @Override
+    public BaseMapper<T, ID> getBaseMapper() {
+        return baseMapper;
     }
 }
