@@ -1,6 +1,8 @@
 package com.shangma.cn.entity;
 
-public class Supplier {
+import com.shangma.cn.entity.base.BaseEntity;
+
+public class Supplier extends BaseEntity {
 
     private String supplierName;
 

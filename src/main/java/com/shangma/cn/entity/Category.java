@@ -1,6 +1,8 @@
 package com.shangma.cn.entity;
 
-public class Category {
+import com.shangma.cn.entity.base.BaseEntity;
+
+public class Category extends BaseEntity {
 
     private String categoryName;
 
