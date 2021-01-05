@@ -1,5 +1,6 @@
 package com.shangma.cn.service.base;
 
+import com.shangma.cn.mapper.base.BaseMapper;
 import com.shangma.cn.vo.PageVo;
 
 import java.util.List;
@@ -78,5 +79,7 @@ public interface BaseService<T, ID> {
      * @return
      */
     PageVo<T> setPageVo(List<T> list);
+
+    public BaseMapper<T, ID> getBaseMapper();
 
 }
