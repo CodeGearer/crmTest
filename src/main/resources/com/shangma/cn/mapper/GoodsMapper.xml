@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shangma.cn.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.shangma.cn.entity.Goods">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="base_category" jdbcType="VARCHAR" property="baseCategory" />
+    <result column="base_brand" jdbcType="VARCHAR" property="baseBrand" />
+    <result column="base_model" jdbcType="VARCHAR" property="baseModel" />
+    <result column="base_color" jdbcType="VARCHAR" property="baseColor" />
+    <result column="base_purchase" jdbcType="VARCHAR" property="basePurchase" />
+    <result column="base_distribution" jdbcType="VARCHAR" property="baseDistribution" />
+    <result column="base_standby" jdbcType="VARCHAR" property="baseStandby" />
+    <result column="good_name" jdbcType="VARCHAR" property="goodName" />
+    <result column="good_category" jdbcType="VARCHAR" property="goodCategory" />
+    <result column="market_price" jdbcType="DOUBLE" property="marketPrice" />
+    <result column="mall_price" jdbcType="DOUBLE" property="mallPrice" />
+    <result column="min_storage" jdbcType="INTEGER" property="minStorage" />
+    <result column="purchase_moudle" jdbcType="VARCHAR" property="purchaseMoudle" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, base_category, base_brand, base_model, base_color, base_purchase, base_distribution, 
+    base_standby, good_name, good_category, market_price, mall_price, min_storage, purchase_moudle
+  </sql>
+  <select id="selectByExample" parameterType="com.shangma.cn.entity.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_goods
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_goods
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shangma.cn.entity.GoodsExample">
+    delete from t_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shangma.cn.entity.Goods">
+    insert into t_goods (id, base_category, base_brand, 
+      base_model, base_color, base_purchase, 
+      base_distribution, base_standby, good_name, 
+      good_category, market_price, mall_price, 
+      min_storage, purchase_moudle)
+    values (#{id,jdbcType=BIGINT}, #{baseCategory,jdbcType=VARCHAR}, #{baseBrand,jdbcType=VARCHAR}, 
+      #{baseModel,jdbcType=VARCHAR}, #{baseColor,jdbcType=VARCHAR}, #{basePurchase,jdbcType=VARCHAR}, 
+      #{baseDistribution,jdbcType=VARCHAR}, #{baseStandby,jdbcType=VARCHAR}, #{goodName,jdbcType=VARCHAR}, 
+      #{goodCategory,jdbcType=VARCHAR}, #{marketPrice,jdbcType=DOUBLE}, #{mallPrice,jdbcType=DOUBLE}, 
+      #{minStorage,jdbcType=INTEGER}, #{purchaseMoudle,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shangma.cn.entity.Goods">
+    insert into t_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="baseCategory != null">
+        base_category,
+      </if>
+      <if test="baseBrand != null">
+        base_brand,
+      </if>
+      <if test="baseModel != null">
+        base_model,
+      </if>
+      <if test="baseColor != null">
+        base_color,
+      </if>
+      <if test="basePurchase != null">
+        base_purchase,
+      </if>
+      <if test="baseDistribution != null">
+        base_distribution,
+      </if>
+      <if test="baseStandby != null">
+        base_standby,
+      </if>
+      <if test="goodName != null">
+        good_name,
+      </if>
+      <if test="goodCategory != null">
+        good_category,
+      </if>
+      <if test="marketPrice != null">
+        market_price,
+      </if>
+      <if test="mallPrice != null">
+        mall_price,
+      </if>
+      <if test="minStorage != null">
+        min_storage,
+      </if>
+      <if test="purchaseMoudle != null">
+        purchase_moudle,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="baseCategory != null">
+        #{baseCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="baseBrand != null">
+        #{baseBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="baseModel != null">
+        #{baseModel,jdbcType=VARCHAR},
+      </if>
+      <if test="baseColor != null">
+        #{baseColor,jdbcType=VARCHAR},
+      </if>
+      <if test="basePurchase != null">
+        #{basePurchase,jdbcType=VARCHAR},
+      </if>
+      <if test="baseDistribution != null">
+        #{baseDistribution,jdbcType=VARCHAR},
+      </if>
+      <if test="baseStandby != null">
+        #{baseStandby,jdbcType=VARCHAR},
+      </if>
+      <if test="goodName != null">
+        #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodCategory != null">
+        #{goodCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="mallPrice != null">
+        #{mallPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="minStorage != null">
+        #{minStorage,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseMoudle != null">
+        #{purchaseMoudle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shangma.cn.entity.GoodsExample" resultType="java.lang.Long">
+    select count(*) from t_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_goods
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.baseCategory != null">
+        base_category = #{record.baseCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseBrand != null">
+        base_brand = #{record.baseBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseModel != null">
+        base_model = #{record.baseModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseColor != null">
+        base_color = #{record.baseColor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.basePurchase != null">
+        base_purchase = #{record.basePurchase,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseDistribution != null">
+        base_distribution = #{record.baseDistribution,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseStandby != null">
+        base_standby = #{record.baseStandby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodName != null">
+        good_name = #{record.goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodCategory != null">
+        good_category = #{record.goodCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marketPrice != null">
+        market_price = #{record.marketPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.mallPrice != null">
+        mall_price = #{record.mallPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.minStorage != null">
+        min_storage = #{record.minStorage,jdbcType=INTEGER},
+      </if>
+      <if test="record.purchaseMoudle != null">
+        purchase_moudle = #{record.purchaseMoudle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_goods
+    set id = #{record.id,jdbcType=BIGINT},
+      base_category = #{record.baseCategory,jdbcType=VARCHAR},
+      base_brand = #{record.baseBrand,jdbcType=VARCHAR},
+      base_model = #{record.baseModel,jdbcType=VARCHAR},
+      base_color = #{record.baseColor,jdbcType=VARCHAR},
+      base_purchase = #{record.basePurchase,jdbcType=VARCHAR},
+      base_distribution = #{record.baseDistribution,jdbcType=VARCHAR},
+      base_standby = #{record.baseStandby,jdbcType=VARCHAR},
+      good_name = #{record.goodName,jdbcType=VARCHAR},
+      good_category = #{record.goodCategory,jdbcType=VARCHAR},
+      market_price = #{record.marketPrice,jdbcType=DOUBLE},
+      mall_price = #{record.mallPrice,jdbcType=DOUBLE},
+      min_storage = #{record.minStorage,jdbcType=INTEGER},
+      purchase_moudle = #{record.purchaseMoudle,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shangma.cn.entity.Goods">
+    update t_goods
+    <set>
+      <if test="baseCategory != null">
+        base_category = #{baseCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="baseBrand != null">
+        base_brand = #{baseBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="baseModel != null">
+        base_model = #{baseModel,jdbcType=VARCHAR},
+      </if>
+      <if test="baseColor != null">
+        base_color = #{baseColor,jdbcType=VARCHAR},
+      </if>
+      <if test="basePurchase != null">
+        base_purchase = #{basePurchase,jdbcType=VARCHAR},
+      </if>
+      <if test="baseDistribution != null">
+        base_distribution = #{baseDistribution,jdbcType=VARCHAR},
+      </if>
+      <if test="baseStandby != null">
+        base_standby = #{baseStandby,jdbcType=VARCHAR},
+      </if>
+      <if test="goodName != null">
+        good_name = #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodCategory != null">
+        good_category = #{goodCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        market_price = #{marketPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="mallPrice != null">
+        mall_price = #{mallPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="minStorage != null">
+        min_storage = #{minStorage,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseMoudle != null">
+        purchase_moudle = #{purchaseMoudle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shangma.cn.entity.Goods">
+    update t_goods
+    set base_category = #{baseCategory,jdbcType=VARCHAR},
+      base_brand = #{baseBrand,jdbcType=VARCHAR},
+      base_model = #{baseModel,jdbcType=VARCHAR},
+      base_color = #{baseColor,jdbcType=VARCHAR},
+      base_purchase = #{basePurchase,jdbcType=VARCHAR},
+      base_distribution = #{baseDistribution,jdbcType=VARCHAR},
+      base_standby = #{baseStandby,jdbcType=VARCHAR},
+      good_name = #{goodName,jdbcType=VARCHAR},
+      good_category = #{goodCategory,jdbcType=VARCHAR},
+      market_price = #{marketPrice,jdbcType=DOUBLE},
+      mall_price = #{mallPrice,jdbcType=DOUBLE},
+      min_storage = #{minStorage,jdbcType=INTEGER},
+      purchase_moudle = #{purchaseMoudle,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

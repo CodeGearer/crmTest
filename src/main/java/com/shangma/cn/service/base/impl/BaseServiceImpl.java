@@ -3,10 +3,13 @@ package com.shangma.cn.service.base.impl;
 import com.github.pagehelper.PageInfo;
 import com.shangma.cn.mapper.base.BaseMapper;
 import com.shangma.cn.service.base.BaseService;
+import com.shangma.cn.utils.ReflectionUtils;
 import com.shangma.cn.vo.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -23,7 +26,6 @@ public class BaseServiceImpl<T, ID> implements BaseService<T, ID> {
 
     @Override
     public PageVo<T> findPage() {
-
         return setPageVo(baseMapper.selectByExample(null));
     }
 
@@ -40,11 +42,15 @@ public class BaseServiceImpl<T, ID> implements BaseService<T, ID> {
 
     @Override
     public int addEntity(T entity) {
+        //给新添加的entity添加操作者和创建时间
+        //使用反射
+        Object setData = ReflectionUtils.invokeMethod(entity, "setData", null, null);
         return baseMapper.insert(entity);
     }
 
     @Override
     public int updateEntity(T entity) {
+        Object setData = ReflectionUtils.invokeMethod(entity, "setData", null, null);
         return baseMapper.updateByPrimaryKey(entity);
     }
 

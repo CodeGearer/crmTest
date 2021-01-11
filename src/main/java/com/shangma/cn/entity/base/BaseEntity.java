@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Data
 public class BaseEntity {
-    private Long id;
+    private long id;
 
     private Date addTime;
 
@@ -19,4 +19,18 @@ public class BaseEntity {
     private Date updateTime;
 
     private Long updateId;
+
+    //定义一个设置添加修改时间和添加人修改人的方法
+    public void setData() {
+        if(id == 0) {
+            //如果ID是0，没有entity就是添加
+            this.addTime = new Date();
+            //这里的ID先留着，从登录用户拿
+            this.creatorId = 1L;
+        } else {
+            //如果ID不是0，说明有entity，就是修改
+            this.updateTime = new Date();
+            this.updateId = 2L;
+        }
+    }
 }
